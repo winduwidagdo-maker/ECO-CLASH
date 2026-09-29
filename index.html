@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Eco Clash Spensased</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent;
+      font-family:'Segoe UI','Poppins',Tahoma,sans-serif; }
+  html,body { overscroll-behavior:none; }
+
+  body {
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:10px;
+    overflow-x:hidden; color:#0D3B12;
+    background-image: url('https://i.ibb.co.com/B2Ldn6bT/NEW-BACKGROUND-ECO-SPENSASED.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position:relative;
+  }
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.0) 50%, rgba(255,255,255,0.10));
+    pointer-events:none;
+    z-index:0;
+  }
+  body > * { position:relative; z-index:1; }
+
+  /* ==== HEADER ==== */
+  .header-wrap {
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; margin-bottom:8px;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:6px 20px; border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18), inset 0 -2px 0 rgba(0,0,0,0.08);
+  }
+  .header-title {
+    font-size:clamp(1rem,3.2vw,1.6rem); font-weight:900;
+    background:linear-gradient(90deg,#1B5E20,#43A047,#FDD835,#43A047,#1B5E20);
+    background-size:200% auto;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; letter-spacing:0.5px;
+    animation:shine 3s linear infinite;
+    filter:drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+  }
+  @keyframes shine { to { background-position:200% center; } }
+  .subtitle { margin-top:1px; font-style:italic; font-weight:600;
+              font-size:clamp(0.62rem,1.8vw,0.78rem); color:#1B5E20; }
+
+  /* ==== TOMBOL SUARA 3D ==== */
+  .sound-btn {
+    position:fixed; top:10px; right:10px;
+    width:42px; height:42px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #FFFFFF, #E0E0E0 60%, #9E9E9E);
+    border:none; cursor:pointer;
+    font-size:1.2rem; color:#333;
+    box-shadow:
+      0 5px 0 #757575,
+      0 7px 14px rgba(0,0,0,0.35),
+      inset 0 -3px 6px rgba(0,0,0,0.15),
+      inset 0 3px 6px rgba(255,255,255,0.9);
+    z-index:100; transition:transform 0.08s, box-shadow 0.08s;
+  }
+  .sound-btn:active {
+    transform:translateY(3px);
+    box-shadow:
+      0 2px 0 #757575,
+      0 3px 6px rgba(0,0,0,0.25),
+      inset 0 -3px 6px rgba(0,0,0,0.15),
+      inset 0 3px 6px rgba(255,255,255,0.9);
+  }
+  .sound-btn.muted { opacity:0.55; }
+
+  #container { width:100%; max-width:1000px; }
+
+  /* ============================================================
+     KOTAK PUTIH TRANSPARAN 70%
+     ============================================================ */
+  .screen {
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:2px solid rgba(255,255,255,0.75);
+    border-radius:20px;
+    padding:16px;
+    box-shadow:
+      0 14px 34px rgba(0,0,0,0.22),
+      inset 0 -3px 0 rgba(0,0,0,0.06),
+      inset 0 3px 0 rgba(255,255,255,0.9);
+    animation:fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
+  .hidden { display:none !important; }
+
+  h2.screen-title { color:#0D47A1; text-align:center; margin-bottom:6px;
+                    font-size:clamp(1rem,2.8vw,1.3rem); font-weight:900;
+                    text-shadow:0 2px 4px rgba(255,255,255,0.9); }
+  p.screen-sub { text-align:center; color:#1B5E20; margin-bottom:12px; font-weight:600;
+                 font-size:clamp(0.75rem,2vw,0.88rem); }
+
+  /* ==== TEMA CARD 3D ==== */
+  .theme-list { display:flex; flex-direction:column; gap:12px; max-width:600px; margin:0 auto; }
+  .theme-card {
+    display:flex; align-items:center; gap:16px; padding:14px 20px;
+    border-radius:18px; cursor:pointer; color:#fff; font-weight:900;
+    position:relative; overflow:hidden;
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .theme-card::before {
+    content:''; position:absolute; top:0; left:-50%; width:100%; height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.35),transparent);
+    transition:left 0.6s;
+  }
+  .theme-card:hover::before { left:120%; }
+  .theme-card:active { transform:translateY(5px); }
+
+  .theme-card.tarik {
+    background:linear-gradient(180deg,#FF5252,#E53935 50%,#C62828);
+    box-shadow:0 7px 0 #8E0000, 0 12px 24px rgba(198,40,40,0.45),
+               inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -4px 0 rgba(0,0,0,0.20);
+  }
+  .theme-card.tarik:active { box-shadow:0 3px 0 #8E0000, 0 5px 12px rgba(198,40,40,0.4), inset 0 2px 0 rgba(255,255,255,0.35); }
+
+  .theme-card.pinang {
+    background:linear-gradient(180deg,#26C6DA,#00ACC1 50%,#00838F);
+    box-shadow:0 7px 0 #005662, 0 12px 24px rgba(0,131,143,0.45),
+               inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -4px 0 rgba(0,0,0,0.20);
+  }
+  .theme-card.pinang:active { box-shadow:0 3px 0 #005662, 0 5px 12px rgba(0,131,143,0.4), inset 0 2px 0 rgba(255,255,255,0.35); }
+
+  .theme-card.karung {
+    background:linear-gradient(180deg,#BA68C8,#8E24AA 50%,#6A1B9A);
+    box-shadow:0 7px 0 #4A148C, 0 12px 24px rgba(106,27,154,0.45),
+               inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -4px 0 rgba(0,0,0,0.20);
+  }
+  .theme-card.karung:active { box-shadow:0 3px 0 #4A148C, 0 5px 12px rgba(106,27,154,0.4), inset 0 2px 0 rgba(255,255,255,0.35); }
+
+  .theme-circle {
+    width:64px; height:64px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem;
+    box-shadow:
+      inset 0 -5px 10px rgba(0,0,0,0.25),
+      inset 0 5px 10px rgba(255,255,255,0.6),
+      0 4px 8px rgba(0,0,0,0.15);
+  }
+  .theme-card.tarik .theme-circle { background:radial-gradient(circle at 30% 30%,#C8E6C9,#66BB6A 60%,#2E7D32); }
+  .theme-card.pinang .theme-circle { background:radial-gradient(circle at 30% 30%,#FFF59D,#FDD835 60%,#F57F17); }
+  .theme-card.karung .theme-circle { background:radial-gradient(circle at 30% 30%,#BBDEFB,#42A5F5 60%,#1565C0); }
+
+  .theme-info { flex:1; text-shadow:0 2px 4px rgba(0,0,0,0.3); }
+  .theme-info .t { font-size:clamp(0.95rem,2.6vw,1.25rem); letter-spacing:0.3px; }
+  .theme-info .s { font-size:clamp(0.65rem,1.7vw,0.78rem); font-style:italic;
+                   font-weight:500; opacity:0.95; margin-top:2px; }
+
+  /* ==== LEVEL CARD 3D ==== */
+  .level-list { display:flex; flex-direction:column; gap:10px; max-width:480px; margin:0 auto; }
+  .level-card {
+    border-radius:16px; padding:14px; cursor:pointer; color:#fff;
+    text-align:center; font-weight:900;
+    transition:transform 0.15s, box-shadow 0.15s;
+    text-shadow:0 2px 4px rgba(0,0,0,0.25);
+  }
+  .level-card:active { transform:translateY(4px); }
+  .level-card.beginner {
+    background:linear-gradient(180deg,#66BB6A,#43A047 55%,#2E7D32);
+    box-shadow:0 7px 0 #1B5E20, 0 12px 20px rgba(46,125,50,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.35);
+  }
+  .level-card.beginner:active { box-shadow:0 3px 0 #1B5E20, 0 5px 12px rgba(46,125,50,0.35); }
+  .level-card.amateur {
+    background:linear-gradient(180deg,#FFB74D,#FB8C00 55%,#E65100);
+    box-shadow:0 7px 0 #BF360C, 0 12px 20px rgba(230,81,0,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.35);
+  }
+  .level-card.amateur:active { box-shadow:0 3px 0 #BF360C, 0 5px 12px rgba(230,81,0,0.35); }
+  .level-card.pro {
+    background:linear-gradient(180deg,#EF5350,#E53935 55%,#B71C1C);
+    box-shadow:0 7px 0 #7F0000, 0 12px 20px rgba(183,28,28,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.35);
+  }
+  .level-card.pro:active { box-shadow:0 3px 0 #7F0000, 0 5px 12px rgba(183,28,28,0.35); }
+  .level-card .stars { font-size:1.2rem; margin-bottom:2px;
+                       filter:drop-shadow(0 2px 3px rgba(0,0,0,0.3)); }
+  .level-card .name { font-size:clamp(0.92rem,2.5vw,1.1rem); }
+  .level-card .desc { font-size:clamp(0.68rem,1.8vw,0.82rem); font-weight:500; opacity:0.98; }
+
+  /* ==== TOMBOL KEMBALI 3D ==== */
+  .btn-back {
+    display:block; margin:14px auto 0;
+    background:linear-gradient(180deg,#FFFFFF,#ECEFF1 60%,#B0BEC5);
+    border:none; color:#37474F; padding:10px 28px; border-radius:26px;
+    cursor:pointer; font-weight:800;
+    font-size:clamp(0.78rem,2vw,0.92rem);
+    box-shadow:0 5px 0 #78909C, 0 8px 16px rgba(0,0,0,0.2),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+    transition:transform 0.1s, box-shadow 0.1s;
+  }
+  .btn-back:active {
+    transform:translateY(4px);
+    box-shadow:0 1px 0 #78909C, 0 2px 6px rgba(0,0,0,0.2),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+  .btn-back:hover { background:linear-gradient(180deg,#FFFFFF,#F5F5F5 60%,#CFD8DC); }
+
+  /* ==== COUNTDOWN ==== */
+  .countdown-screen {
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:2px solid rgba(255,255,255,0.75);
+    box-shadow:0 14px 34px rgba(0,0,0,0.22);
+    border-radius:20px; padding:22px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:55vh;
+  }
+  .countdown-label {
+    color:#0D47A1; font-size:clamp(1rem,2.8vw,1.35rem); font-weight:900;
+    margin-bottom:10px; text-align:center;
+    text-shadow:0 2px 4px rgba(255,255,255,0.8);
+  }
+  .countdown-sub {
+    color:#1B5E20; font-size:clamp(0.75rem,2.1vw,0.9rem); margin-bottom:22px;
+    text-align:center; font-style:italic; font-weight:600;
+  }
+  .countdown-circle {
+    width:170px; height:170px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#FFFDE7,#FFD54F 55%,#F57F17);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(5rem,16vw,7rem); font-weight:900; color:#0D47A1;
+    box-shadow:
+      0 18px 50px rgba(0,0,0,0.35),
+      inset 0 -12px 26px rgba(0,0,0,0.20),
+      inset 0 10px 20px rgba(255,255,255,0.9);
+    animation:countPulse 1s ease infinite;
+    text-shadow:0 5px 10px rgba(255,255,255,0.9);
+    border:7px solid rgba(255,255,255,0.95);
+    position:relative;
+  }
+  .countdown-circle::before {
+    content:''; position:absolute; inset:-14px; border-radius:50%;
+    border:4px dashed rgba(13,71,161,0.5);
+    animation:spin 8s linear infinite;
+  }
+  @keyframes countPulse {
+    0% { transform:scale(1); }
+    50% { transform:scale(1.08); }
+    100% { transform:scale(1); }
+  }
+  @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+  .countdown-circle.go {
+    background:radial-gradient(circle at 30% 30%,#B9F6CA,#00E676 55%,#1B5E20);
+    color:#FFFFFF; font-size:clamp(3rem,10vw,5rem);
+    animation:goBounce 0.6s ease;
+    text-shadow:0 4px 8px rgba(0,0,0,0.4);
+  }
+  @keyframes goBounce {
+    0% { transform:scale(0.5); opacity:0; }
+    50% { transform:scale(1.15); opacity:1; }
+    100% { transform:scale(1); opacity:1; }
+  }
+  .countdown-theme {
+    margin-top:22px; font-size:clamp(0.9rem,2.6vw,1.15rem);
+    font-weight:900; color:#1B5E20; text-align:center;
+    text-shadow:0 2px 4px rgba(255,255,255,0.8);
+  }
+  .countdown-level {
+    margin-top:6px; font-size:clamp(0.78rem,2.1vw,0.95rem); color:#0D47A1;
+    text-align:center; font-weight:700;
+  }
+
+  .game-header {
+    font-size:clamp(0.9rem,2.4vw,1.15rem); font-weight:900; color:#0D47A1;
+    margin-bottom:8px; text-align:center;
+    text-shadow:0 2px 4px rgba(255,255,255,0.9);
+  }
+
+  /* Wrapper canvas */
+  .game-canvas-wrap {
+    position:relative; border-radius:16px; overflow:hidden;
+    box-shadow:0 12px 28px rgba(0,0,0,0.28),
+               inset 0 0 0 2px rgba(255,255,255,0.6);
+    margin-bottom:10px;
+    background:#E8F5E9;
+  }
+
+  /* Canvas tidak pucat */
+  canvas {
+    display:block; width:100%; height:auto;
+    position:relative; z-index:2;
+    opacity:0.9;
+  }
+
+  /* Tombol Home & Fullscreen 3D */
+  .home-btn, .fs-btn {
+    position:absolute; bottom:8px; width:38px; height:38px; border-radius:10px;
+    background:linear-gradient(180deg,#FFFFFF,#ECEFF1 60%,#B0BEC5);
+    border:none; cursor:pointer; font-size:1rem;
+    color:#37474F;
+    box-shadow:0 4px 0 #78909C, 0 6px 12px rgba(0,0,0,0.25),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+    transition:transform 0.1s, box-shadow 0.1s;
+    z-index:3;
+  }
+  .home-btn { left:8px; }
+  .fs-btn { right:8px; }
+  .home-btn:active, .fs-btn:active {
+    transform:translateY(3px);
+    box-shadow:0 1px 0 #78909C, 0 2px 6px rgba(0,0,0,0.25),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+
+  .panels-row {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  @media (max-width:640px) {
+    .panels-row { grid-template-columns:1fr; }
+  }
+
+  /* ==== PANEL PEMAIN ==== */
+  .panel {
+    background:rgba(255,255,255,0.95);
+    border-radius:14px; padding:10px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.15),
+               inset 0 -3px 0 rgba(0,0,0,0.05);
+  }
+  .panel-p1 { border-top:5px solid #FF6F00;
+              background:linear-gradient(180deg,rgba(255,243,224,0.95),rgba(255,255,255,0.95)); }
+  .panel-p2 { border-top:5px solid #1565C0;
+              background:linear-gradient(180deg,rgba(227,242,253,0.95),rgba(255,255,255,0.95)); }
+
+  .player-badge {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:6px 10px; border-radius:10px; color:#fff; font-weight:900;
+    font-size:clamp(0.72rem,1.9vw,0.85rem); margin-bottom:8px;
+    text-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  .player-badge.p1 {
+    background:linear-gradient(180deg,#FFB74D,#FB8C00 55%,#E65100);
+    box-shadow:0 3px 0 #BF360C, 0 5px 10px rgba(230,81,0,0.35),
+               inset 0 2px 0 rgba(255,255,255,0.4);
+  }
+  .player-badge.p2 {
+    background:linear-gradient(180deg,#64B5F6,#1E88E5 55%,#0D47A1);
+    box-shadow:0 3px 0 #062B60, 0 5px 10px rgba(13,71,161,0.35),
+               inset 0 2px 0 rgba(255,255,255,0.4);
+  }
+
+  .question-mini {
+    background:linear-gradient(180deg,#F1F8E9,#DCEDC8);
+    border:2px solid #AED581;
+    border-radius:10px; padding:8px 10px;
+    font-size:clamp(0.72rem,1.9vw,0.82rem); font-weight:700; color:#1B5E20;
+    min-height:52px; margin-bottom:8px; line-height:1.35;
+    display:flex; align-items:center; white-space:pre-line;
+    box-shadow:inset 0 2px 4px rgba(0,0,0,0.08);
+  }
+  .question-mini.pro {
+    background:linear-gradient(180deg,#FFF3E0,#FFE0B2);
+    border-color:#FFB74D; color:#E65100;
+  }
+  .question-mini.amateur {
+    background:linear-gradient(180deg,#E3F2FD,#BBDEFB);
+    border-color:#64B5F6; color:#0D47A1;
+  }
+
+  /* ==== TOMBOL JAWABAN 3D ==== */
+  .answers-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  @media (max-width:640px) {
+    .answers-mini { grid-template-columns:1fr; }
+  }
+  .answer-mini {
+    background:linear-gradient(180deg,#FFFFFF,#E8F5E9 60%,#C8E6C9);
+    border:none;
+    padding:8px 10px; border-radius:10px; cursor:pointer;
+    font-size:clamp(0.68rem,1.8vw,0.78rem);
+    transition:transform 0.1s, box-shadow 0.1s;
+    text-align:left; color:#1B5E20; font-weight:700; line-height:1.3;
+    box-shadow:0 3px 0 #81C784, 0 5px 10px rgba(129,199,132,0.3),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+  .answer-mini:hover:not(:disabled) {
+    background:linear-gradient(180deg,#FFFFFF,#F1F8E9 60%,#DCEDC8);
+  }
+  .answer-mini:active:not(:disabled) {
+    transform:translateY(3px);
+    box-shadow:0 1px 0 #81C784, 0 2px 6px rgba(129,199,132,0.3),
+               inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+  .answer-mini.correct {
+    background:linear-gradient(180deg,#B9F6CA,#00E676 55%,#00A152) !important;
+    color:#FFFFFF; text-shadow:0 1px 3px rgba(0,0,0,0.3);
+    box-shadow:0 3px 0 #00701A, 0 5px 10px rgba(0,224,118,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.4) !important;
+    animation:pulse 0.5s;
+  }
+  .answer-mini.wrong {
+    background:linear-gradient(180deg,#FF8A80,#EF5350 55%,#C62828) !important;
+    color:#FFFFFF; text-shadow:0 1px 3px rgba(0,0,0,0.3);
+    box-shadow:0 3px 0 #8E0000, 0 5px 10px rgba(239,83,80,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.3) !important;
+    animation:shake 0.4s;
+  }
+  .answer-mini:disabled { cursor:not-allowed; opacity:0.9; }
+  .answer-mini.correct, .answer-mini.wrong { opacity:1; }
+
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+  @keyframes shake { 0%,100%{transform:translateX(0);}
+                     25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+
+  .feedback-mini {
+    margin-top:6px; font-size:clamp(0.68rem,1.8vw,0.78rem); font-weight:800;
+    text-align:center; min-height:18px;
+  }
+  .feedback-mini.ok { color:#00A152; text-shadow:0 1px 2px rgba(255,255,255,0.9); }
+  .feedback-mini.no { color:#C62828; text-shadow:0 1px 2px rgba(255,255,255,0.9); }
+
+  /* ==== RESULT ==== */
+  .result { text-align:center; }
+  .result .big-emoji { font-size:clamp(2.4rem,7vw,3.6rem); margin-bottom:4px;
+                       display:block; animation:bounceIn 0.6s;
+                       filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+  @keyframes bounceIn { 0%{transform:scale(0);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
+  .result h2 { color:#1B5E20; font-size:clamp(1.05rem,3vw,1.55rem);
+               margin-bottom:10px; font-weight:900;
+               text-shadow:0 2px 4px rgba(255,255,255,0.9); }
+  .winner-box {
+    background:linear-gradient(180deg,#FFF9C4,#FFE082 55%,#FFB300);
+    border:3px solid #FFFFFF;
+    border-radius:14px; padding:12px; margin:10px auto; max-width:400px;
+    font-size:clamp(0.82rem,2.2vw,0.98rem); font-weight:800; color:#4E342E;
+    box-shadow:0 6px 14px rgba(255,179,0,0.4),
+               inset 0 3px 0 rgba(255,255,255,0.9),
+               inset 0 -3px 0 rgba(0,0,0,0.08);
+    text-shadow:0 1px 2px rgba(255,255,255,0.9);
+  }
+  .stats-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
+  .stat-card {
+    background:#FFFFFF; border-radius:12px; padding:10px 16px; min-width:140px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.15),
+               inset 0 -3px 0 rgba(0,0,0,0.05);
+  }
+  .stat-card.p1 { border-top:5px solid #FF6F00; }
+  .stat-card.p2 { border-top:5px solid #1565C0; }
+  .stat-card h4 { font-size:0.85rem; margin-bottom:4px; color:#455A64; font-weight:700; }
+  .stat-card .v { font-size:1.15rem; font-weight:900; color:#0D47A1; }
+
+  /* ==== TOMBOL MAIN LAGI 3D ==== */
+  .btn-again {
+    color:white; border:none;
+    padding:11px 26px; border-radius:14px; cursor:pointer; font-weight:900;
+    font-size:clamp(0.8rem,2.1vw,0.95rem);
+    margin:6px;
+    transition:transform 0.1s, box-shadow 0.1s;
+    text-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  .btn-again.green {
+    background:linear-gradient(180deg,#66BB6A,#43A047 55%,#2E7D32);
+    box-shadow:0 5px 0 #1B5E20, 0 8px 18px rgba(46,125,50,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.4);
+  }
+  .btn-again.green:active {
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #1B5E20, 0 3px 6px rgba(46,125,50,0.35),
+               inset 0 2px 0 rgba(255,255,255,0.4);
+  }
+  .btn-again.grey {
+    background:linear-gradient(180deg,#90A4AE,#607D8B 55%,#37474F);
+    box-shadow:0 5px 0 #263238, 0 8px 18px rgba(55,71,79,0.4),
+               inset 0 2px 0 rgba(255,255,255,0.3);
+  }
+  .btn-again.grey:active {
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #263238, 0 3px 6px rgba(55,71,79,0.35),
+               inset 0 2px 0 rgba(255,255,255,0.3);
+  }
+
+  .footer {
+    text-align:center; color:#0D3B12; font-size:0.7rem; margin-top:10px;
+    padding:6px 14px;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    border-radius:18px; font-weight:600;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  }
+  .footer b { color:#0D47A1; }
+</style>
+</head>
+<body>
+
+<button class="sound-btn" id="soundBtn" onclick="toggleSound()" title="Suara On/Off">🔊</button>
+
+<div class="header-wrap">
+  <h1 class="header-title">🌿 Eco Clash Spensased 🌿</h1>
+  <p class="subtitle">Duel 2 Pemain — Lomba Tradisional Berwawasan Lingkungan</p>
+</div>
+
+<div id="container">
+
+  <div id="menuScreen" class="screen">
+    <h2 class="screen-title">Pilih Tema Permainan</h2>
+    <p class="screen-sub">Dua pemain berlomba menjawab. Siapa cepat, dia menang!</p>
+    <div class="theme-list">
+      <div class="theme-card tarik" onclick="selectTheme('tarik')">
+        <div class="theme-circle">🪢</div>
+        <div class="theme-info">
+          <div class="t">Tarik Tambang</div>
+          <div class="s">Tarik tali sekuat tenaga bersama timmu</div>
+        </div>
+      </div>
+      <div class="theme-card pinang" onclick="selectTheme('pinang')">
+        <div class="theme-circle">🌴</div>
+        <div class="theme-info">
+          <div class="t">Panjat Pinang</div>
+          <div class="s">Siapa cepat sampai puncak, dia juara</div>
+        </div>
+      </div>
+      <div class="theme-card karung" onclick="selectTheme('karung')">
+        <div class="theme-circle">🏃</div>
+        <div class="theme-info">
+          <div class="t">Balap Karung</div>
+          <div class="s">Lompat sejauh mungkin menuju finish</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="levelScreen" class="screen hidden">
+    <h2 class="screen-title">Pilih Level Kesulitan</h2>
+    <p class="screen-sub" id="levelSub">Mode: Tarik Tambang</p>
+    <div class="level-list">
+      <div class="level-card beginner" onclick="selectLevel('beginner')">
+        <div class="stars">⭐</div>
+        <div class="name">Beginner</div>
+        <div class="desc">Soal dasar lingkungan & Adiwiyata</div>
+      </div>
+      <div class="level-card amateur" onclick="selectLevel('amateur')">
+        <div class="stars">⭐⭐</div>
+        <div class="name">Amateur</div>
+        <div class="desc">Soal literasi & numerasi bertema lingkungan</div>
+      </div>
+      <div class="level-card pro" onclick="selectLevel('pro')">
+        <div class="stars">⭐⭐⭐</div>
+        <div class="name">Pro</div>
+        <div class="desc">Studi kasus lingkungan & solusi nyata</div>
+      </div>
+    </div>
+    <button class="btn-back" onclick="backToMenu()">← Kembali</button>
+  </div>
+
+  <div id="countdownScreen" class="screen countdown-screen hidden">
+    <div class="countdown-label">Bersiap-siap!</div>
+    <div class="countdown-sub">Pemain 1 & Pemain 2, siapkan jempolmu...</div>
+    <div class="countdown-circle" id="countdownNumber">3</div>
+    <div class="countdown-theme" id="countdownTheme">🪢 Tarik Tambang</div>
+    <div class="countdown-level" id="countdownLevel">⭐ Beginner</div>
+  </div>
+
+  <div id="gameScreen" class="screen hidden">
+    <div class="game-header" id="gameHeader">Tarik Tambang Adiwiyata</div>
+
+    <div class="game-canvas-wrap">
+      <canvas id="gameCanvas" width="960" height="400"></canvas>
+      <button class="home-btn" onclick="backToMenu()" title="Menu">🏠</button>
+      <button class="fs-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+    </div>
+
+    <div class="panels-row">
+      <div class="panel panel-p1">
+        <div class="player-badge p1">
+          <span>👤 PEMAIN 1</span>
+          <span class="target" id="target1">0/7</span>
+        </div>
+        <div class="question-mini" id="q1">Memuat soal...</div>
+        <div class="answers-mini" id="a1"></div>
+        <div class="feedback-mini" id="f1"></div>
+      </div>
+
+      <div class="panel panel-p2">
+        <div class="player-badge p2">
+          <span>👤 PEMAIN 2</span>
+          <span class="target" id="target2">0/7</span>
+        </div>
+        <div class="question-mini" id="q2">Memuat soal...</div>
+        <div class="answers-mini" id="a2"></div>
+        <div class="feedback-mini" id="f2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="screen hidden result">
+    <span class="big-emoji" id="resultEmoji">🎉</span>
+    <h2 id="resultTitle">Pemain Menang!</h2>
+    <div class="winner-box" id="winnerBox"></div>
+    <div class="stats-row">
+      <div class="stat-card p1">
+        <h4>👤 Pemain 1</h4>
+        <div class="v" id="statP1">0</div>
+      </div>
+      <div class="stat-card p2">
+        <h4>👤 Pemain 2</h4>
+        <div class="v" id="statP2">0</div>
+      </div>
+    </div>
+    <div>
+      <button class="btn-again green" onclick="playAgain()">🔄 Main Lagi</button>
+      <button class="btn-again grey" onclick="backToMenu()">🏠 Menu</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">© <b>Spensased</b> 2025 | Eco Clash Spensased v2.1</div>
+
+<script>
+/* ============================================================
+   BANK SOAL
+   ============================================================ */
+const QUESTIONS_BEGINNER = [
+  { q:"Apa kepanjangan dan tujuan utama program Adiwiyata?",
+    a:["Program sekolah berwawasan lingkungan","Perlombaan olahraga antar sekolah","Program beasiswa siswa berprestasi","Organisasi ekstrakurikuler"],
+    correct:0 },
+  { q:"Berapa jenis pemilahan sampah ideal di sekolah Adiwiyata?",
+    a:["1 jenis saja","Minimal 3 jenis (organik, anorganik, B3)","Tidak perlu memilah","Hanya sampah plastik"],
+    correct:1 },
+  { q:"Sampah organik seperti daun kering sebaiknya diolah menjadi...",
+    a:["Plastik daur ulang","Kompos atau pupuk organik","Bahan bakar minyak","Kaca"],
+    correct:1 },
+  { q:"Apa yang dimaksud dengan prinsip 3R?",
+    a:["Reduce, Reuse, Recycle","Read, Run, Rest","Red, Rose, Rice","Rock, Roll, Rap"],
+    correct:0 },
+  { q:"Cara menghemat air di sekolah yang benar adalah...",
+    a:["Membiarkan kran terbuka","Menampung air hujan untuk menyiram tanaman","Bermain air di kamar mandi","Menyiram jalan setiap hari"],
+    correct:1 },
+  { q:"Sampah plastik membutuhkan waktu berapa lama untuk terurai?",
+    a:["1 minggu","1 bulan","1 tahun","Ratusan tahun"],
+    correct:3 },
+  { q:"Apa manfaat utama lubang biopori di halaman sekolah?",
+    a:["Menampung air hujan dan mencegah banjir","Hiasan taman saja","Tempat sampah","Mainan siswa"],
+    correct:0 },
+  { q:"Kegiatan yang mencerminkan budaya Adiwiyata adalah...",
+    a:["Menebang pohon sembarangan","Membuang sampah ke sungai","Kerja bakti, tanam pohon, Jumat Bersih","Membakar sampah plastik"],
+    correct:2 },
+  { q:"Sikap pelajar Adiwiyata sejati ditunjukkan dengan...",
+    a:["Peduli lingkungan setiap hari","Hanya bersih saat ada penilaian","Acuh tak acuh terhadap sampah","Menyalahkan petugas kebersihan"],
+    correct:0 },
+  { q:"Contoh sumber energi terbarukan yang bisa dimanfaatkan sekolah adalah...",
+    a:["Bensin dan solar","Matahari, angin, dan air","Batubara","Gas LPG"],
+    correct:1 }
+];
+
+const QUESTIONS_AMATEUR = [
+  { q:"📖 Bacaan: Sekolah Adiwiyata memilah sampah jadi 3: organik, anorganik, B3. Organik jadi kompos, anorganik didaur ulang, B3 diserahkan ke dinas.\n\n❓ Pernyataan yang SESUAI dengan bacaan adalah...",
+    a:["Sampah B3 dibuang ke sungai","Sampah organik diolah jadi kompos","Semua sampah dibakar","Anorganik ditimbun di tanah"],
+    correct:1 },
+  { q:"🔢 Numerasi: Satu kelas menghasilkan 2 kg sampah/hari. Ada 5 kelas. Berapa kg sampah sekolah dalam 1 minggu (7 hari)?",
+    a:["35 kg","50 kg","70 kg","100 kg"],
+    correct:2 },
+  { q:"📖 Bacaan: 'Biopori' adalah lubang resapan air berdiameter 10 cm, kedalaman 1 m, berisi sampah organik.\n\n❓ Manfaat UTAMA biopori adalah...",
+    a:["Menambah sampah","Menyerap air & mencegah banjir","Memperbanyak nyamuk","Membuat tanah kering"],
+    correct:1 },
+  { q:"🔢 Numerasi: 1 lubang biopori menyerap 40 liter air/jam. Ada 25 lubang. Berapa liter air terserap dalam 1 jam?",
+    a:["100 liter","500 liter","1.000 liter","2.500 liter"],
+    correct:2 },
+  { q:"📖 Bacaan: Sekolah X memakai 5 liter air/menit untuk menyiram taman selama 30 menit setiap hari.\n\n❓ Berapa liter air terpakai dalam 1 hari?",
+    a:["100 liter","150 liter","200 liter","300 liter"],
+    correct:1 },
+  { q:"🔢 Numerasi: Jika 1 pohon menyerap 22 kg CO₂/tahun, berapa CO₂ diserap 50 pohon dalam 1 tahun?",
+    a:["110 kg","220 kg","1.100 kg","2.200 kg"],
+    correct:2 },
+  { q:"📖 Bacaan: 'Reduce' artinya mengurangi, 'Reuse' memakai ulang, 'Recycle' mendaur ulang.\n\n❓ Membawa tumbler ke sekolah termasuk...",
+    a:["Recycle","Reuse","Reduce","Redistribute"],
+    correct:2 },
+  { q:"🔢 Numerasi: Kelas mengumpulkan 15 kg plastik bekas. Setiap 1 kg plastik dijual Rp 2.000. Berapa uang yang didapat?",
+    a:["Rp 15.000","Rp 30.000","Rp 45.000","Rp 60.000"],
+    correct:1 },
+  { q:"📖 Bacaan: Sekolah mengadakan 'Jumat Bersih' setiap minggu. Siswa membawa alat kebersihan dari rumah.\n\n❓ Nilai utama dari kegiatan ini adalah...",
+    a:["Nilai gotong royong & tanggung jawab","Nilai kompetisi","Nilai ekonomi","Nilai hiburan"],
+    correct:0 },
+  { q:"🔢 Numerasi: 1 siswa menanam 3 bibit pohon. Jika ada 40 siswa, berapa total bibit tertanam?",
+    a:["80","100","120","140"],
+    correct:2 }
+];
+
+const QUESTIONS_PRO = [
+  { q:"🏫 KASUS: Air limbah kantin mengalir langsung ke saluran sekolah dan menimbulkan bau. Solusi paling tepat adalah...",
+    a:["Membiarkan saja","Membuat bak penampungan & filter sebelum dibuang","Menyemprot parfum ke saluran","Menutup saluran permanen"],
+    correct:1 },
+  { q:"🌊 KASUS: Setiap hujan deras, halaman sekolah tergenang. Setelah disurvei, tanah sulit menyerap air. Tindakan prioritas adalah...",
+    a:["Menambah paving beton","Membuat lubang biopori & taman resapan","Menebang pohon","Membuang air ke jalan"],
+    correct:1 },
+  { q:"🔥 KASUS: Sebagian siswa membakar sampah plastik di belakang sekolah. Analisis dampak paling serius adalah...",
+    a:["Menghasilkan asap dioksin beracun","Mengurangi sampah plastik","Menambah pupuk","Menghemat biaya"],
+    correct:0 },
+  { q:"🌳 KASUS: Halaman sekolah gersang & panas. Setelah diukur, suhu naik 3°C dibanding tahun lalu. Solusi paling efektif adalah...",
+    a:["Menambah AC di setiap kelas","Menanam pohon peneduh & tanaman hijau","Memperbanyak kipas","Membuat kolam ikan"],
+    correct:1 },
+  { q:"🍱 KASUS: Sisa makanan kantin terbuang 5 kg/hari. Kepala sekolah ingin menjadikannya bermanfaat. Solusi terbaik adalah...",
+    a:["Dibuang ke TPA","Diolah jadi kompos / pakan ternak","Dibakar","Ditimbun dalam tanah"],
+    correct:1 },
+  { q:"💧 KASUS: Kran sekolah sering menetes setelah dipakai. Selama sebulan, air terbuang 1.500 liter. Tindakan pencegahan utama adalah...",
+    a:["Membiarkan karena air melimpah","Mengganti kran dengan model hemat air & membuat jadwal perawatan","Menambah wastafel","Menyumbat kran"],
+    correct:1 },
+  { q:"⚡ KASUS: Konsumsi listrik sekolah naik 20% karena lampu sering menyala siang hari. Solusi paling praktis adalah...",
+    a:["Memasang lampu lebih terang","Memasang sensor gerak & poster hemat energi","Mematikan listrik total","Mengganti seluruh atap"],
+    correct:1 },
+  { q:"📚 KASUS: Sekolah ingin menjadikan siswa sebagai agen perubahan lingkungan. Program paling efektif adalah...",
+    a:["Lomba satu kali saja","Kaderisasi 'Duta Adiwiyata' dengan tugas rutin","Seminar tanpa tindak lanjut","Membagikan brosur saja"],
+    correct:1 },
+  { q:"🚯 KASUS: Sampah plastik di kantin menumpuk tiap hari. Data: 200 bungkus/hari. Alternatif solusi paling berkelanjutan adalah...",
+    a:["Menyediakan tempat sampah lebih banyak","Menerapkan kantin bebas plastik sekali pakai + bawa tumbler","Membakar setiap sore","Menimbun di belakang"],
+    correct:1 },
+  { q:"🌱 KASUS: Program daur ulang sekolah menghasilkan Rp 500.000/bulan. Kepala sekolah ingin dana ini digunakan paling tepat untuk Adiwiyata. Pilihan terbaik adalah...",
+    a:["Dibagikan ke siswa","Dibelikan bibit pohon, alat kompos, & pelatihan siswa","Untuk honor panitia","Membeli AC kelas"],
+    correct:1 }
+];
+
+function getQuestionBank(level) {
+  if (level === 'amateur') return QUESTIONS_AMATEUR;
+  if (level === 'pro') return QUESTIONS_PRO;
+  return QUESTIONS_BEGINNER;
+}
+
+const state = {
+  theme:null, level:'beginner',
+  bank:[],
+  p1:{ benar:0, index:0, currentQI:0, answered:false, wrong:0 },
+  p2:{ benar:0, index:0, currentQI:0, answered:false, wrong:0 },
+  targetBenar:7, finished:false,
+  p1Order:[], p2Order:[]
+};
+
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+/* ============================================================
+   AUDIO
+   ============================================================ */
+let audioCtx = null;
+let soundEnabled = true;
+let bgmTimer = null;
+let bgmIndex = 0;
+let bgmPlaying = false;
+
+function initAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } catch(e){}
+  }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+function tone(freq, dur, type='sine', vol=0.15) {
+  if (!soundEnabled) return;
+  try {
+    initAudio();
+    if (!audioCtx) return;
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  } catch(e){}
+}
+const BGM_NOTES = [
+  { f: 523, d: 0.4 }, { f: 659, d: 0.4 }, { f: 784, d: 0.4 }, { f: 659, d: 0.4 },
+  { f: 587, d: 0.4 }, { f: 698, d: 0.4 }, { f: 880, d: 0.4 }, { f: 698, d: 0.4 },
+  { f: 523, d: 0.4 }, { f: 659, d: 0.4 }, { f: 784, d: 0.4 }, { f: 1046, d: 0.6 },
+  { f: 880, d: 0.4 }, { f: 784, d: 0.4 }, { f: 659, d: 0.4 }, { f: 523, d: 0.6 }
+];
+const BGM_BASS = [
+  131, 131, 165, 165, 147, 147, 196, 196,
+  131, 131, 165, 165, 175, 175, 147, 131
+];
+function playBGMNote(freq, dur, vol) {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = 'triangle'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0, audioCtx.currentTime);
+    g.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur + 0.05);
+  } catch(e){}
+}
+function playBGMBass(freq, dur, vol) {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0, audioCtx.currentTime);
+    g.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + 0.08);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur + 0.05);
+  } catch(e){}
+}
+function startBGM() {
+  if (bgmPlaying) return;
+  initAudio();
+  if (!audioCtx) return;
+  bgmPlaying = true; bgmIndex = 0; loopBGM();
+}
+function loopBGM() {
+  if (!bgmPlaying) return;
+  const note = BGM_NOTES[bgmIndex % BGM_NOTES.length];
+  const bassNote = BGM_BASS[bgmIndex % BGM_BASS.length];
+  playBGMNote(note.f, note.d * 0.9, 0.055);
+  playBGMBass(bassNote, note.d * 0.9, 0.04);
+  bgmIndex++;
+  bgmTimer = setTimeout(loopBGM, note.d * 1000);
+}
+function stopBGM() {
+  bgmPlaying = false;
+  if (bgmTimer) { clearTimeout(bgmTimer); bgmTimer = null; }
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  const btn = document.getElementById('soundBtn');
+  if (soundEnabled) {
+    btn.textContent = '🔊'; btn.classList.remove('muted');
+    if (!document.getElementById('gameScreen').classList.contains('hidden')) startBGM();
+    tone(880, 0.12, 'triangle', 0.2);
+  } else {
+    btn.textContent = '🔇'; btn.classList.add('muted');
+    stopBGM();
+  }
+}
+const sfx = {
+  correct(){ tone(660,0.1,'triangle',0.16); setTimeout(()=>tone(880,0.16,'triangle',0.16),90); },
+  wrong(){ tone(220,0.25,'sawtooth',0.13); },
+  click(){ tone(520,0.05,'square',0.08); },
+  win(){ [523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,0.22,'triangle',0.18),i*120)); },
+  countdown(n){ tone(600 + n*100, 0.15, 'triangle', 0.18); },
+  go(){ [523,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,0.2,'triangle',0.22),i*100)); }
+};
+
+/* ============ MENU ============ */
+function selectTheme(theme) {
+  initAudio();
+  state.theme = theme;
+  const subs = {tarik:'Mode: Tarik Tambang', pinang:'Mode: Panjat Pinang', karung:'Mode: Balap Karung'};
+  document.getElementById('levelSub').textContent = subs[theme];
+  document.getElementById('menuScreen').classList.add('hidden');
+  document.getElementById('levelScreen').classList.remove('hidden');
+  sfx.click();
+}
+function selectLevel(level) {
+  initAudio();
+  state.level = level;
+  state.bank = getQuestionBank(level);
+  state.targetBenar = (state.theme === 'karung') ? 10 : 7;
+  document.getElementById('levelScreen').classList.add('hidden');
+  document.getElementById('countdownScreen').classList.remove('hidden');
+  const temaEmoji = {tarik:'🪢 Tarik Tambang', pinang:'🌴 Panjat Pinang', karung:'🏃 Balap Karung'};
+  const levelLabel = {beginner:'⭐ Beginner', amateur:'⭐⭐ Amateur', pro:'⭐⭐⭐ Pro'};
+  document.getElementById('countdownTheme').textContent = temaEmoji[state.theme];
+  document.getElementById('countdownLevel').textContent = levelLabel[state.level];
+  runCountdown();
+}
+function runCountdown() {
+  const el = document.getElementById('countdownNumber');
+  let count = 3;
+  el.textContent = count;
+  el.classList.remove('go');
+  el.style.animation = 'countPulse 1s ease infinite';
+  sfx.countdown(count);
+  const interval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      el.textContent = count;
+      sfx.countdown(count);
+    } else if (count === 0) {
+      el.textContent = 'GO!';
+      el.classList.add('go');
+      el.style.animation = 'goBounce 0.6s ease';
+      sfx.go();
+      clearInterval(interval);
+      setTimeout(() => { startGame(); }, 750);
+    }
+  }, 1000);
+}
+function backToMenu() {
+  state.finished = true;
+  stopBGM();
+  document.getElementById('menuScreen').classList.remove('hidden');
+  document.getElementById('levelScreen').classList.add('hidden');
+  document.getElementById('countdownScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+}
+
+/* ============ MULAI GAME ============ */
+function startGame() {
+  initAudio();
+  state.p1 = { benar:0, index:0, currentQI:0, answered:false, wrong:0 };
+  state.p2 = { benar:0, index:0, currentQI:0, answered:false, wrong:0 };
+  state.finished = false;
+  state.p1Order = shuffledIndexes(state.bank.length);
+  state.p2Order = shuffledIndexes(state.bank.length);
+  if (state.p1Order[0] === state.p2Order[0]) {
+    const t = state.p2Order[0]; state.p2Order[0] = state.p2Order[1]; state.p2Order[1] = t;
+  }
+  const titles = {tarik:'Tarik Tambang Adiwiyata', pinang:'Panjat Pinang Adiwiyata', karung:'Balap Karung Adiwiyata'};
+  const levelLabel = {beginner:'⭐ Beginner', amateur:'⭐⭐ Amateur', pro:'⭐⭐⭐ Pro'};
+  document.getElementById('gameHeader').textContent = titles[state.theme] + ' • ' + levelLabel[state.level];
+  document.getElementById('menuScreen').classList.add('hidden');
+  document.getElementById('levelScreen').classList.add('hidden');
+  document.getElementById('countdownScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+  p1AnimPos = 0; p2AnimPos = 0; knotAnim = 0;
+  updateBadges();
+  loadQuestionFor(1);
+  loadQuestionFor(2);
+  requestAnimationFrame(animate);
+  if (soundEnabled) startBGM();
+}
+function shuffledIndexes(n) {
+  const arr = [...Array(n).keys()];
+  for (let i=arr.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]] = [arr[j],arr[i]]; }
+  return arr;
+}
+function updateBadges() {
+  document.getElementById('target1').textContent = state.p1.benar + '/' + state.targetBenar;
+  document.getElementById('target2').textContent = state.p2.benar + '/' + state.targetBenar;
+}
+function loadQuestionFor(player) {
+  const p = player === 1 ? state.p1 : state.p2;
+  const order = player === 1 ? state.p1Order : state.p2Order;
+  const qi = order[p.index % order.length];
+  const q = state.bank[qi];
+  p.answered = false;
+  p.currentQI = qi;
+  const qBox = document.getElementById('q' + player);
+  qBox.textContent = q.q;
+  qBox.className = 'question-mini ' + state.level;
+  const fBox = document.getElementById('f' + player);
+  fBox.textContent = ''; fBox.className = 'feedback-mini';
+  const aBox = document.getElementById('a' + player);
+  aBox.innerHTML = '';
+  q.a.forEach((ans, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-mini';
+    btn.textContent = String.fromCharCode(65+i) + '. ' + ans;
+    btn.onclick = () => answerFor(player, i);
+    aBox.appendChild(btn);
+  });
+}
+function answerFor(player, idx) {
+  if (state.finished) return;
+  const p = player === 1 ? state.p1 : state.p2;
+  if (p.answered) return;
+  p.answered = true;
+  const q = state.bank[p.currentQI];
+  const buttons = document.getElementById('a' + player).querySelectorAll('.answer-mini');
+  const fBox = document.getElementById('f' + player);
+  if (idx === q.correct) {
+    buttons[idx].classList.add('correct');
+    p.benar++;
+    fBox.textContent = '✅ Benar! Menarik tali!';
+    fBox.className = 'feedback-mini ok';
+    sfx.correct();
+  } else {
+    buttons[idx].classList.add('wrong');
+    buttons[q.correct].classList.add('correct');
+    p.wrong++;
+    fBox.textContent = '❌ Belum tepat. Jawaban: ' + String.fromCharCode(65+q.correct);
+    fBox.className = 'feedback-mini no';
+    sfx.wrong();
+  }
+  buttons.forEach(b => b.disabled = true);
+  updateBadges();
+  if (p.benar >= state.targetBenar) {
+    state.finished = true;
+    setTimeout(() => showResult(player), 1400);
+    return;
+  }
+  p.index++;
+  setTimeout(() => { if (!state.finished) loadQuestionFor(player); }, 1300);
+}
+function showResult(winner) {
+  stopBGM();
+  document.getElementById('gameScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.remove('hidden');
+  const temaNama = {tarik:'menarik tali', pinang:'memanjat tiang pinang', karung:'sampai ke garis akhir'};
+  const levelLabel = {beginner:'Beginner', amateur:'Amateur', pro:'Pro'};
+  document.getElementById('resultEmoji').textContent = '🏆';
+  document.getElementById('resultTitle').textContent = 'Pemain ' + winner + ' Menang!';
+  document.getElementById('winnerBox').innerHTML = '🎉 Selamat! Pemain ' + winner + ' berhasil ' + temaNama[state.theme] + ' lebih dulu dari lawannya!<br><small>Level: ' + levelLabel[state.level] + '</small>';
+  document.getElementById('statP1').textContent = state.p1.benar + '/' + state.targetBenar + ' benar';
+  document.getElementById('statP2').textContent = state.p2.benar + '/' + state.targetBenar + ' benar';
+  sfx.win();
+}
+function playAgain() {
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('countdownScreen').classList.remove('hidden');
+  const temaEmoji = {tarik:'🪢 Tarik Tambang', pinang:'🌴 Panjat Pinang', karung:'🏃 Balap Karung'};
+  const levelLabel = {beginner:'⭐ Beginner', amateur:'⭐⭐ Amateur', pro:'⭐⭐⭐ Pro'};
+  document.getElementById('countdownTheme').textContent = temaEmoji[state.theme];
+  document.getElementById('countdownLevel').textContent = levelLabel[state.level];
+  runCountdown();
+}
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+
+/* ============ ANIMASI ============ */
+let animTime = 0;
+let p1AnimPos = 0, p2AnimPos = 0, knotAnim = 0;
+
+function animate() {
+  animTime += 0.05;
+  if (state.finished && document.getElementById('gameScreen').classList.contains('hidden')) return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawBackground();
+
+  if (state.theme === 'tarik') {
+    const diff = (state.p1.benar - state.p2.benar) / state.targetBenar;
+    const clamped = Math.max(-1, Math.min(1, diff));
+    p1AnimPos += ((-clamped) - p1AnimPos) * 0.08;
+    p2AnimPos += ((-clamped) - p2AnimPos) * 0.08;
+    knotAnim += ((-clamped) - knotAnim) * 0.08;
+  } else {
+    const t1 = state.targetBenar ? state.p1.benar / state.targetBenar : 0;
+    const t2 = state.targetBenar ? state.p2.benar / state.targetBenar : 0;
+    p1AnimPos += (t1 - p1AnimPos) * 0.08;
+    p2AnimPos += (t2 - p2AnimPos) * 0.08;
+  }
+
+  if (state.theme === 'tarik') drawTarikTambang();
+  else if (state.theme === 'pinang') drawPanjatPinang();
+  else if (state.theme === 'karung') drawBalapKarung();
+  if (!document.getElementById('gameScreen').classList.contains('hidden')) requestAnimationFrame(animate);
+}
+
+/* ============ BACKGROUND 3D CERAH ============ */
+function drawBackground() {
+  let skyTop, skyBot, groundTop, groundBot;
+  if (state.theme === 'tarik') { skyTop='#FFEBEE'; skyBot='#FFCDD2'; groundTop='#A5D6A7'; groundBot='#2E7D32'; }
+  else if (state.theme === 'pinang') { skyTop='#E0F7FA'; skyBot='#4DD0E1'; groundTop='#AED581'; groundBot='#388E3C'; }
+  else { skyTop='#F3E5F5'; skyBot='#CE93D8'; groundTop='#A5D6A7'; groundBot='#2E7D32'; }
+
+  const sky = ctx.createLinearGradient(0,0,0,290);
+  sky.addColorStop(0,skyTop); sky.addColorStop(1,skyBot);
+  ctx.fillStyle = sky; ctx.fillRect(0,0,canvas.width,290);
+
+  const sunGrad = ctx.createRadialGradient(860, 65, 4, 860, 65, 38);
+  sunGrad.addColorStop(0, '#FFFDE7');
+  sunGrad.addColorStop(0.5, '#FFEB3B');
+  sunGrad.addColorStop(1, '#F57F17');
+  ctx.fillStyle = sunGrad;
+  ctx.beginPath(); ctx.arc(860, 65, 36, 0, Math.PI*2); ctx.fill();
+
+  ctx.strokeStyle = 'rgba(255,193,7,0.85)'; ctx.lineWidth = 3;
+  for (let i=0;i<12;i++){
+    const a = (i/12)*Math.PI*2 + animTime*0.02;
+    ctx.beginPath();
+    ctx.moveTo(860+Math.cos(a)*46, 65+Math.sin(a)*46);
+    ctx.lineTo(860+Math.cos(a)*56, 65+Math.sin(a)*56);
+    ctx.stroke();
+  }
+  drawCloud3D((140 + animTime*7) % 1100 - 140, 78, 0.9);
+  drawCloud3D((520 + animTime*5) % 1100 - 140, 52, 0.75);
+  drawCloud3D((780 + animTime*6) % 1100 - 140, 95, 0.6);
+
+  const grd = ctx.createLinearGradient(0,290,0,400);
+  grd.addColorStop(0,groundTop); grd.addColorStop(1,groundBot);
+  ctx.fillStyle = grd; ctx.fillRect(0,290,canvas.width,110);
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.lineWidth = 2;
+  for (let x=0; x<canvas.width; x+=40) {
+    ctx.beginPath();
+    ctx.moveTo(x, 300);
+    ctx.lineTo(x+20, 312);
+    ctx.stroke();
+  }
+  drawTree3D(70,300,1);
+  drawTree3D(890,295,1);
+  drawTree3D(230,298,0.8);
+  drawTree3D(740,298,0.8);
+  for (let x=40;x<canvas.width;x+=150) drawFlower3D(x, 360 + Math.sin(x*0.3 + animTime*0.5)*3);
+}
+function drawCloud3D(x,y,scale){
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.beginPath();
+  ctx.arc(x+3*scale, y+3*scale, 26*scale, 0, Math.PI*2);
+  ctx.arc(x+30*scale, y+3*scale, 30*scale, 0, Math.PI*2);
+  ctx.arc(x+58*scale, y+3*scale, 26*scale, 0, Math.PI*2);
+  ctx.arc(x+30*scale, y-12*scale+3, 26*scale, 0, Math.PI*2);
+  ctx.fill();
+  const grad = ctx.createLinearGradient(x, y-34*scale, x, y+26*scale);
+  grad.addColorStop(0, '#FFFFFF'); grad.addColorStop(1, '#E3F2FD');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(x, y, 26*scale, 0, Math.PI*2);
+  ctx.arc(x+30*scale, y, 30*scale, 0, Math.PI*2);
+  ctx.arc(x+58*scale, y, 26*scale, 0, Math.PI*2);
+  ctx.arc(x+30*scale, y-12*scale, 26*scale, 0, Math.PI*2);
+  ctx.fill();
+}
+function drawTree3D(x,y,scale){
+  const trunkGrad = ctx.createLinearGradient(x-5*scale, 0, x+5*scale, 0);
+  trunkGrad.addColorStop(0, '#5D4037');
+  trunkGrad.addColorStop(0.5, '#8D6E63');
+  trunkGrad.addColorStop(1, '#3E2723');
+  ctx.fillStyle = trunkGrad;
+  ctx.fillRect(x-5*scale, y-30*scale, 10*scale, 40*scale);
+  const leafGrad1 = ctx.createRadialGradient(x-8*scale, y-55*scale, 4, x, y-46*scale, 28*scale);
+  leafGrad1.addColorStop(0, '#81C784'); leafGrad1.addColorStop(1, '#1B5E20');
+  ctx.fillStyle = leafGrad1;
+  ctx.beginPath();
+  ctx.arc(x, y-50*scale, 26*scale, 0, Math.PI*2);
+  ctx.arc(x-20*scale, y-42*scale, 18*scale, 0, Math.PI*2);
+  ctx.arc(x+20*scale, y-42*scale, 18*scale, 0, Math.PI*2);
+  ctx.fill();
+  const leafGrad2 = ctx.createRadialGradient(x-4*scale, y-60*scale, 3, x, y-56*scale, 18*scale);
+  leafGrad2.addColorStop(0, '#A5D6A7'); leafGrad2.addColorStop(1, '#43A047');
+  ctx.fillStyle = leafGrad2;
+  ctx.beginPath(); ctx.arc(x, y-58*scale, 18*scale, 0, Math.PI*2); ctx.fill();
+}
+function drawFlower3D(x,y){
+  const colors = [
+    ['#FF1744','#B71C1C'], ['#FFEB3B','#F57F17'],
+    ['#E040FB','#6A1B9A'], ['#FF9100','#E65100']
+  ];
+  const c = colors[Math.floor(x/150)%colors.length];
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.beginPath(); ctx.ellipse(x, y+6, 6, 2, 0, 0, Math.PI*2); ctx.fill();
+  for (let i=0;i<5;i++){
+    const a = (i/5)*Math.PI*2;
+    const g = ctx.createRadialGradient(x+Math.cos(a)*5, y+Math.sin(a)*5, 1, x+Math.cos(a)*5, y+Math.sin(a)*5, 6);
+    g.addColorStop(0, c[0]); g.addColorStop(1, c[1]);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x+Math.cos(a)*5, y+Math.sin(a)*5, 5, 0, Math.PI*2); ctx.fill();
+  }
+  const cg = ctx.createRadialGradient(x-2, y-2, 0, x, y, 4);
+  cg.addColorStop(0, '#FFFFFF'); cg.addColorStop(1, '#FFC107');
+  ctx.fillStyle = cg;
+  ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();
+}
+
+/* ============ TARIK TAMBANG ============ */
+function drawTarikTambang() {
+  const centerX = 480, ropeY = 350, groundY = 375;
+  const knotX = centerX + knotAnim * 120;
+  const shiftRange = 240;
+  const p1x = 200 + p1AnimPos * shiftRange;
+  const p2x = 760 + p2AnimPos * shiftRange;
+  const p1Kalah = p1x >= centerX - 20;
+  const p2Kalah = p2x <= centerX + 20;
+
+  ctx.setLineDash([12,10]);
+  ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+  ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(centerX, 235); ctx.lineTo(centerX, 405); ctx.stroke();
+  ctx.setLineDash([]);
+
+  const ropeHandP1X = p1x + 22;
+  const ropeHandP2X = p2x - 22;
+
+  const ropeGrad = ctx.createLinearGradient(0, ropeY - 4, 0, ropeY + 8);
+  ropeGrad.addColorStop(0, '#D2691E');
+  ropeGrad.addColorStop(0.5, '#A0522D');
+  ropeGrad.addColorStop(1, '#5D4037');
+
+  ctx.strokeStyle = ropeGrad; ctx.lineWidth = 10; ctx.lineCap = 'round';
+  const midLeftX = (ropeHandP1X + knotX) / 2;
+  const sag = 6 + Math.abs(knotAnim * 120) * 0.06;
+  ctx.beginPath();
+  ctx.moveTo(ropeHandP1X, ropeY);
+  ctx.quadraticCurveTo(midLeftX, ropeY + sag, knotX, ropeY);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(knotX, ropeY);
+  const midRightX = (knotX + ropeHandP2X) / 2;
+  ctx.quadraticCurveTo(midRightX, ropeY + sag, ropeHandP2X, ropeY);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(ropeHandP1X, ropeY - 3);
+  ctx.quadraticCurveTo(midLeftX, ropeY + sag - 3, knotX, ropeY - 3);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(knotX, ropeY - 3);
+  ctx.quadraticCurveTo(midRightX, ropeY + sag - 3, ropeHandP2X, ropeY - 3);
+  ctx.stroke();
+
+  const knotGrad = ctx.createRadialGradient(knotX-2, ropeY-2, 1, knotX, ropeY, 13);
+  knotGrad.addColorStop(0, '#FF5252'); knotGrad.addColorStop(1, '#B71C1C');
+  ctx.fillStyle = knotGrad;
+  ctx.beginPath(); ctx.arc(knotX, ropeY, 12, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(knotX, ropeY, 12, 0, Math.PI*2); ctx.stroke();
+
+  ctx.fillStyle = '#424242';
+  ctx.fillRect(knotX - 2, ropeY - 55, 4, 42);
+  ctx.fillStyle = '#E53935';
+  ctx.beginPath();
+  ctx.moveTo(knotX + 2, ropeY - 55); ctx.lineTo(knotX + 34, ropeY - 48); ctx.lineTo(knotX + 2, ropeY - 41);
+  ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.moveTo(knotX + 2, ropeY - 48); ctx.lineTo(knotX + 34, ropeY - 48); ctx.lineTo(knotX + 2, ropeY - 41);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(knotX + 2, ropeY - 55); ctx.lineTo(knotX + 34, ropeY - 48); ctx.lineTo(knotX + 2, ropeY - 41);
+  ctx.stroke();
+
+  drawCharacter3D(p1x, groundY, '#FF9800', '#E65100', 1, 'P1', 'tarik');
+  drawCharacter3D(p2x, groundY, '#2196F3', '#0D47A1', -1, 'P2', 'tarik');
+
+  ctx.fillStyle = '#FFC107';
+  ctx.beginPath(); ctx.arc(ropeHandP1X, ropeY, 11, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#E65100'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(ropeHandP1X, ropeY, 11, 0, Math.PI*2); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.beginPath(); ctx.arc(ropeHandP1X - 3, ropeY - 3, 3.5, 0, Math.PI*2); ctx.fill();
+
+  ctx.fillStyle = '#FFC107';
+  ctx.beginPath(); ctx.arc(ropeHandP2X, ropeY, 11, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#E65100';
+  ctx.beginPath(); ctx.arc(ropeHandP2X, ropeY, 11, 0, Math.PI*2); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.beginPath(); ctx.arc(ropeHandP2X - 3, ropeY - 3, 3.5, 0, Math.PI*2); ctx.fill();
+
+  if (p1Kalah) {
+    ctx.fillStyle = 'rgba(229,57,53,1)';
+    ctx.font = 'bold 20px Segoe UI'; ctx.textAlign = 'center';
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 4;
+    ctx.strokeText('⚠️ PEMAIN 1 MELEWATI GARIS — KALAH!', centerX, 215);
+    ctx.fillText('⚠️ PEMAIN 1 MELEWATI GARIS — KALAH!', centerX, 215);
+  }
+  if (p2Kalah) {
+    ctx.fillStyle = 'rgba(229,57,53,1)';
+    ctx.font = 'bold 20px Segoe UI'; ctx.textAlign = 'center';
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 4;
+    ctx.strokeText('⚠️ PEMAIN 2 MELEWATI GARIS — KALAH!', centerX, 215);
+    ctx.fillText('⚠️ PEMAIN 2 MELEWATI GARIS — KALAH!', centerX, 215);
+  }
+  if (Math.abs(knotAnim) > 0.05) {
+    const yangUnggul = knotAnim < 0 ? 'P1' : 'P2';
+    ctx.fillStyle = '#FFC107';
+    ctx.font = 'bold 15px Segoe UI'; ctx.textAlign = 'center';
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3;
+    ctx.strokeText('💪 ' + yangUnggul + ' sedang menarik tali!', centerX, 190);
+    ctx.fillText('💪 ' + yangUnggul + ' sedang menarik tali!', centerX, 190);
+  }
+  ctx.fillStyle = '#0D47A1';
+  ctx.font = 'bold 13px Segoe UI'; ctx.textAlign = 'center';
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 3;
+  const txt = 'Benar = tali tertarik & kamu mundur. Yang melewati garis putih putus-putus, KALAH!';
+  ctx.strokeText(txt, centerX, 395);
+  ctx.fillText(txt, centerX, 395);
+}
+
+/* ============ PANJAT PINANG ============ */
+function drawPanjatPinang() {
+  const p1PoleX = 280, p2PoleX = 680, groundY = 375, topY = 60;
+  drawPole3D(p1PoleX, topY, groundY, p1AnimPos, 1);
+  drawPole3D(p2PoleX, topY, groundY, p2AnimPos, 2);
+  ctx.fillStyle = '#0D47A1';
+  ctx.font = 'bold 13px Segoe UI'; ctx.textAlign = 'center';
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 3;
+  const txt = 'Jawab soal untuk memanjat! Siapa cepat 7 benar, dia menang!';
+  ctx.strokeText(txt, 480, 395);
+  ctx.fillText(txt, 480, 395);
+}
+function drawPole3D(poleX, topY, groundY, progress, playerNum) {
+  const poleWidth = 18;
+  const poleGrad = ctx.createLinearGradient(poleX - poleWidth/2, 0, poleX + poleWidth/2, 0);
+  poleGrad.addColorStop(0, '#0D5302');
+  poleGrad.addColorStop(0.4, '#4CAF50');
+  poleGrad.addColorStop(0.6, '#81C784');
+  poleGrad.addColorStop(1, '#2E7D32');
+  ctx.fillStyle = poleGrad;
+  ctx.fillRect(poleX - poleWidth/2, topY, poleWidth, groundY - topY);
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillRect(poleX - 3, topY, 3, groundY - topY);
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1.5;
+  for (let y = topY + 25; y < groundY; y += 26) {
+    ctx.beginPath();
+    ctx.moveTo(poleX - poleWidth/2, y); ctx.lineTo(poleX + poleWidth/2, y); ctx.stroke();
+  }
+  const ringGrad = ctx.createLinearGradient(poleX-60, topY, poleX+60, topY+12);
+  ringGrad.addColorStop(0, '#1B5E20'); ringGrad.addColorStop(0.5, '#66BB6A'); ringGrad.addColorStop(1, '#0D5302');
+  ctx.fillStyle = ringGrad;
+  ctx.beginPath(); ctx.ellipse(poleX, topY + 6, 60, 12, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = '#FFFFFF'; ctx.fillRect(poleX + 8, topY - 34, 32, 11);
+  ctx.fillStyle = '#E53935'; ctx.fillRect(poleX + 8, topY - 45, 32, 11);
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1.5; ctx.strokeRect(poleX + 8, topY - 45, 32, 22);
+  const items = ['shirt','guitar','gift','pot','bike'];
+  const spacing = 26; const startX = poleX - 58;
+  items.forEach((item, i) => {
+    const ix = startX + i * spacing;
+    ctx.strokeStyle = '#6D4C41'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(ix, topY + 13); ctx.lineTo(ix, topY + 30); ctx.stroke();
+    drawHangingItem3D(item, ix, topY + 40);
+  });
+  const climbY = groundY - 65 - progress * (groundY - topY - 110);
+  const side = (playerNum === 1) ? -1 : 1;
+  const charX = poleX + side * 24;
+  drawClimbingCharacter3D(charX, climbY, playerNum === 1 ? '#FF9800' : '#2196F3',
+                           playerNum === 1 ? '#E65100' : '#0D47A1', side,
+                           playerNum === 1 ? 'P1' : 'P2');
+}
+function drawHangingItem3D(type, x, y) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.beginPath(); ctx.ellipse(0, 14, 10, 3, 0, 0, Math.PI*2); ctx.fill();
+  if (type === 'shirt') {
+    const g = ctx.createLinearGradient(-10, -8, 10, 12);
+    g.addColorStop(0, '#64B5F6'); g.addColorStop(1, '#1976D2');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(-9, -6); ctx.lineTo(9, -6); ctx.lineTo(11, -3); ctx.lineTo(8, -1);
+    ctx.lineTo(8, 12); ctx.lineTo(-8, 12); ctx.lineTo(-8, -1); ctx.lineTo(-11, -3);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1; ctx.stroke();
+  } else if (type === 'guitar') {
+    const g = ctx.createRadialGradient(-3, 4, 2, 0, 6, 12);
+    g.addColorStop(0, '#FFEB3B'); g.addColorStop(1, '#F57F17');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(0, 6, 9, 11, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#6D4C41'; ctx.fillRect(-2, -14, 4, 16);
+    ctx.fillStyle = '#3E2723';
+    ctx.beginPath(); ctx.arc(0, 6, 3.5, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(0, 6, 9, 11, 0, 0, Math.PI*2); ctx.stroke();
+  } else if (type === 'gift') {
+    const g = ctx.createLinearGradient(-9, -6, 9, 12);
+    g.addColorStop(0, '#FF5252'); g.addColorStop(1, '#B71C1C');
+    ctx.fillStyle = g; ctx.fillRect(-9, -6, 18, 14);
+    ctx.fillStyle = '#FFEB3B';
+    ctx.fillRect(-9, 0, 18, 3); ctx.fillRect(-1.8, -6, 3.6, 14);
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1; ctx.strokeRect(-9, -6, 18, 14);
+  } else if (type === 'pot') {
+    const g = ctx.createLinearGradient(-9, -6, 9, 12);
+    g.addColorStop(0, '#ECEFF1'); g.addColorStop(1, '#546E7A');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(-9, -4); ctx.lineTo(9, -4); ctx.lineTo(7, 12); ctx.lineTo(-7, 12);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#37474F'; ctx.fillRect(-11, -7, 22, 4);
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-9, -4); ctx.lineTo(9, -4); ctx.lineTo(7, 12); ctx.lineTo(-7, 12);
+    ctx.closePath(); ctx.stroke();
+  } else if (type === 'bike') {
+    ctx.strokeStyle = '#3E2723'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.arc(-7, 8, 6, 0, Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(7, 8, 6, 0, Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = '#8D6E63'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-7, 8); ctx.lineTo(0, -1); ctx.lineTo(7, 8);
+    ctx.moveTo(0, -1); ctx.lineTo(2, -9);
+    ctx.moveTo(-3, -9); ctx.lineTo(5, -9);
+    ctx.stroke();
+    ctx.strokeStyle = '#1A1A1A';
+    ctx.beginPath(); ctx.moveTo(2, -9); ctx.lineTo(7, -9); ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawClimbingCharacter3D(x, y, colorMain, colorDark, side, label) {
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.beginPath(); ctx.ellipse(x + side*8, y + 32, 14, 4, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#1E88E5';
+  ctx.fillRect(x - 9, y + 14, 9, 22); ctx.fillRect(x + side*5, y + 14, 9, 22);
+  const shoeGrad = ctx.createLinearGradient(x-12, 0, x+12, 0);
+  shoeGrad.addColorStop(0, '#263238'); shoeGrad.addColorStop(1, '#0D1117');
+  ctx.fillStyle = shoeGrad;
+  ctx.fillRect(x - 11, y + 32, 13, 6); ctx.fillRect(x + side*3, y + 32, 13, 6);
+  const bodyGrad = ctx.createRadialGradient(x - 5, y - 8, 2, x, y + 2, 22);
+  bodyGrad.addColorStop(0, colorMain); bodyGrad.addColorStop(1, colorDark);
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath(); roundRect(x - 15, y - 16, 30, 32, 9); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.beginPath(); roundRect(x - 12, y - 14, 8, 22, 6); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.98)';
+  ctx.beginPath(); ctx.ellipse(x, y+2, 5, 7, 0.3, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = colorDark; ctx.lineWidth = 1.3;
+  ctx.beginPath(); ctx.moveTo(x-2.5, y+7); ctx.lineTo(x+2.5, y-3); ctx.stroke();
+  const armWobble = Math.sin(animTime*4) * 2;
+  ctx.fillStyle = colorMain;
+  ctx.beginPath(); roundRect(x - 21, y - 20 + armWobble, 9, 19, 4.5); ctx.fill();
+  ctx.beginPath(); roundRect(x + 12, y - 22 - armWobble, 9, 19, 4.5); ctx.fill();
+  const headGrad = ctx.createRadialGradient(x - 4, y - 32, 2, x, y - 28, 16);
+  headGrad.addColorStop(0, '#FFE082'); headGrad.addColorStop(1, '#FFB300');
+  ctx.fillStyle = headGrad;
+  ctx.beginPath(); ctx.arc(x, y - 30, 14, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#E53935';
+  ctx.beginPath(); ctx.arc(x, y - 35, 14, Math.PI, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath(); ctx.arc(x, y - 35, 14, Math.PI, Math.PI*1.5); ctx.lineTo(x, y - 35); ctx.fill();
+  const hairGrad = ctx.createLinearGradient(x-12, y-46, x+12, y-38);
+  hairGrad.addColorStop(0, '#5D4037'); hairGrad.addColorStop(1, '#3E2723');
+  ctx.fillStyle = hairGrad;
+  ctx.beginPath(); ctx.arc(x, y - 39, 12, Math.PI, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.arc(x + side*1, y - 31, 2.2, 0, Math.PI*2);
+  ctx.arc(x + side*5.5, y - 31, 2.2, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#FFF';
+  ctx.beginPath(); ctx.arc(x + side*0.5, y - 32, 0.8, 0, Math.PI*2);
+  ctx.arc(x + side*5, y - 32, 0.8, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#5D4037'; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.arc(x + side*3, y - 26, 4, 0.2, Math.PI-0.2); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,138,128,0.6)';
+  ctx.beginPath(); ctx.arc(x - 7, y - 27, 2.5, 0, Math.PI*2); ctx.fill();
+  if (label) {
+    ctx.fillStyle = 'rgba(255,255,255,0.98)';
+    ctx.beginPath(); roundRect(x - 18, y - 68, 36, 16, 8); ctx.fill();
+    ctx.strokeStyle = colorDark; ctx.lineWidth = 1.5;
+    ctx.beginPath(); roundRect(x - 18, y - 68, 36, 16, 8); ctx.stroke();
+    ctx.fillStyle = colorDark;
+    ctx.font = 'bold 11px Segoe UI';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, x, y - 60);
+  }
+}
+
+/* ============ BALAP KARUNG ============ */
+function drawBalapKarung() {
+  const startX = 110, finishX = 850, groundY = 345;
+  const fieldGrad = ctx.createLinearGradient(0, 290, 0, 400);
+  fieldGrad.addColorStop(0, '#A5D6A7'); fieldGrad.addColorStop(1, '#2E7D32');
+  ctx.fillStyle = fieldGrad; ctx.fillRect(0, 290, canvas.width, 110);
+  const shadowGrad = ctx.createLinearGradient(0, 400, 0, 420);
+  shadowGrad.addColorStop(0, '#1B5E20'); shadowGrad.addColorStop(1, '#0D3B12');
+  ctx.fillStyle = shadowGrad; ctx.fillRect(0, 400, canvas.width, 20);
+  drawCheckeredStripe(startX, 300, 8, 90);
+  drawCheckeredStripe(finishX, 300, 8, 90);
+  ctx.strokeStyle = '#212121'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(finishX + 12, 260); ctx.lineTo(finishX + 12, 320); ctx.stroke();
+  for (let i=0;i<5;i++)
+    for (let j=0;j<2;j++){
+      ctx.fillStyle = (i+j)%2===0?'#212121':'#FFFFFF';
+      ctx.fillRect(finishX + 14 + i*7, 260 + j*7, 7, 7);
+    }
+  const laneY1 = groundY - 15, laneY2 = groundY + 20;
+  const x1 = startX + 30 + p1AnimPos * (finishX - startX - 60);
+  const x2 = startX + 30 + p2AnimPos * (finishX - startX - 60);
+  const jump1 = Math.abs(Math.sin(animTime*4)) * 12;
+  const jump2 = Math.abs(Math.sin(animTime*4 + 1.5)) * 12;
+  drawRunnerInSack(x1, laneY1 - jump1, '#FF9800', '#E65100', 'P1');
+  drawRunnerInSack(x2, laneY2 - jump2, '#2196F3', '#0D47A1', 'P2');
+  ctx.fillStyle = '#0D47A1';
+  ctx.font = 'bold 13px Segoe UI'; ctx.textAlign = 'center';
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 3;
+  const txt = 'Jawab soal untuk melompat! Siapa cepat 10 lompatan, dia menang!';
+  ctx.strokeText(txt, 480, 395);
+  ctx.fillText(txt, 480, 395);
+}
+function drawCheckeredStripe(x, y, w, h) {
+  for (let i=0;i<h/8;i++)
+    for (let j=0;j<w/8;j++) {
+      ctx.fillStyle = (i+j)%2===0 ? '#FFFFFF' : '#D32F2F';
+      ctx.fillRect(x + j*8, y + i*8, 8, 8);
+    }
+}
+function drawRunnerInSack(x, y, colorMain, colorDark, label) {
+  const sackW = 46, sackH = 60, sackTop = y + 8;
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.beginPath(); ctx.ellipse(x, sackTop + sackH + 5, sackW/2 + 5, 6, 0, 0, Math.PI*2); ctx.fill();
+  const sackGrad = ctx.createLinearGradient(x - sackW/2, 0, x + sackW/2, 0);
+  sackGrad.addColorStop(0, '#6D4C41'); sackGrad.addColorStop(0.35, '#D7CCC8');
+  sackGrad.addColorStop(0.65, '#A1887F'); sackGrad.addColorStop(1, '#3E2723');
+  ctx.fillStyle = sackGrad;
+  ctx.beginPath();
+  ctx.moveTo(x - sackW/2 + 2, sackTop);
+  ctx.lineTo(x + sackW/2 - 2, sackTop);
+  ctx.quadraticCurveTo(x + sackW/2 + 3, sackTop + 20, x + sackW/2 - 4, sackTop + sackH - 6);
+  ctx.quadraticCurveTo(x, sackTop + sackH + 3, x - sackW/2 + 4, sackTop + sackH - 6);
+  ctx.quadraticCurveTo(x - sackW/2 - 3, sackTop + 20, x - sackW/2 + 2, sackTop);
+  ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1.5;
+  for (let i = 0; i < 3; i++) {
+    const yy = sackTop + 20 + i * 12;
+    ctx.beginPath();
+    ctx.moveTo(x - sackW/2 + 6, yy);
+    ctx.quadraticCurveTo(x, yy + 2, x + sackW/2 - 6, yy);
+    ctx.stroke();
+  }
+  ctx.fillStyle = '#3E2723';
+  ctx.beginPath(); ctx.ellipse(x, sackTop + 2, sackW/2 - 1, 5, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#212121'; ctx.lineWidth = 1.8;
+  ctx.beginPath(); ctx.ellipse(x, sackTop + 2, sackW/2 - 1, 5, 0, 0, Math.PI*2); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(x - sackW/2 + 4, sackTop + 8);
+  ctx.quadraticCurveTo(x - sackW/2 - 2, sackTop + 30, x - sackW/2 + 5, sackTop + sackH - 8);
+  ctx.stroke();
+  const bodyY = sackTop - 15;
+  const bodyGrad = ctx.createRadialGradient(x - 6, bodyY - 8, 2, x, bodyY, 24);
+  bodyGrad.addColorStop(0, colorMain); bodyGrad.addColorStop(1, colorDark);
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath(); roundRect(x - 16, bodyY - 18, 32, 36, 10); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.beginPath(); roundRect(x - 13, bodyY - 15, 9, 26, 7); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.98)';
+  ctx.beginPath(); ctx.ellipse(x, bodyY + 2, 5.5, 8, 0.3, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = colorDark; ctx.lineWidth = 1.3;
+  ctx.beginPath(); ctx.moveTo(x-3, bodyY+8); ctx.lineTo(x+3, bodyY-4); ctx.stroke();
+  const armWobble = Math.sin(animTime*4) * 3;
+  ctx.fillStyle = colorMain;
+  ctx.beginPath(); roundRect(x - 24, bodyY - 12 + armWobble, 10, 20, 5); ctx.fill();
+  ctx.beginPath(); roundRect(x + 14, bodyY - 12 - armWobble, 10, 20, 5); ctx.fill();
+  const headGrad = ctx.createRadialGradient(x - 4, bodyY - 34, 2, x, bodyY - 30, 17);
+  headGrad.addColorStop(0, '#FFE082'); headGrad.addColorStop(1, '#FFB300');
+  ctx.fillStyle = headGrad;
+  ctx.beginPath(); ctx.arc(x, bodyY - 32, 15, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#E53935';
+  ctx.beginPath(); ctx.arc(x, bodyY - 37, 15, Math.PI, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath(); ctx.arc(x, bodyY - 37, 15, Math.PI, Math.PI*1.5); ctx.lineTo(x, bodyY - 37); ctx.fill();
+  const hairGrad = ctx.createLinearGradient(x-13, bodyY-48, x+13, bodyY-40);
+  hairGrad.addColorStop(0, '#5D4037'); hairGrad.addColorStop(1, '#3E2723');
+  ctx.fillStyle = hairGrad;
+  ctx.beginPath(); ctx.arc(x, bodyY - 41, 13, Math.PI, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(x - 5, bodyY - 33, 2.4, 0, Math.PI*2);
+  ctx.arc(x + 5, bodyY - 33, 2.4, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#FFF';
+  ctx.beginPath();
+  ctx.arc(x - 6, bodyY - 34, 1, 0, Math.PI*2);
+  ctx.arc(x + 4, bodyY - 34, 1, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#5D4037'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(x, bodyY - 27, 5, 0.2, Math.PI-0.2); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,138,128,0.6)';
+  ctx.beginPath();
+  ctx.arc(x - 10, bodyY - 29, 2.8, 0, Math.PI*2);
+  ctx.arc(x + 10, bodyY - 29, 2.8, 0, Math.PI*2);
+  ctx.fill();
+  if (label) {
+    ctx.fillStyle = 'rgba(255,255,255,0.98)';
+    ctx.beginPath(); roundRect(x - 18, bodyY - 70, 36, 17, 8); ctx.fill();
+    ctx.strokeStyle = colorDark; ctx.lineWidth = 1.5;
+    ctx.beginPath(); roundRect(x - 18, bodyY - 70, 36, 17, 8); ctx.stroke();
+    ctx.fillStyle = colorDark;
+    ctx.font = 'bold 11px Segoe UI';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, x, bodyY - 62);
+  }
+}
+
+/* ============ KARAKTER 3D ============ */
+function drawCharacter3D(x, y, colorMain, colorDark, facing, label, mode) {
+  const drawArms = mode !== 'tarik';
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.beginPath(); ctx.ellipse(x, y + 32, 30, 7, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#1E88E5';
+  ctx.fillRect(x - 20, y - 10, 11, 34); ctx.fillRect(x + 9, y - 10, 11, 34);
+  const shoeGrad = ctx.createLinearGradient(x-24, y+22, x+24, y+30);
+  shoeGrad.addColorStop(0, '#263238'); shoeGrad.addColorStop(1, '#0D1117');
+  ctx.fillStyle = shoeGrad;
+  ctx.fillRect(x - 22, y + 22, 15, 8); ctx.fillRect(x + 8, y + 22, 15, 8);
+  const bodyGrad = ctx.createRadialGradient(x - 8, y - 20, 3, x, y - 10, 30);
+  bodyGrad.addColorStop(0, colorMain); bodyGrad.addColorStop(1, colorDark);
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath(); roundRect(x - 20, y - 34, 40, 44, 11); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.beginPath(); roundRect(x - 16, y - 30, 12, 30, 8); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.98)';
+  ctx.beginPath(); ctx.ellipse(x, y - 8, 6, 9, 0.3, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = colorDark; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x - 3, y - 1); ctx.lineTo(x + 3, y - 15); ctx.stroke();
+  if (drawArms) {
+    ctx.fillStyle = colorMain;
+    ctx.beginPath(); roundRect(x - 28, y - 30, 10, 28, 5); ctx.fill();
+    ctx.beginPath(); roundRect(x + 18, y - 30, 10, 28, 5); ctx.fill();
+  }
+  const headGrad = ctx.createRadialGradient(x - 5, y - 56, 3, x, y - 50, 20);
+  headGrad.addColorStop(0, '#FFE082'); headGrad.addColorStop(1, '#FFB300');
+  ctx.fillStyle = headGrad;
+  ctx.beginPath(); ctx.arc(x, y - 52, 18, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#E53935';
+  ctx.beginPath(); ctx.arc(x, y - 57, 18, Math.PI, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath(); ctx.arc(x, y - 57, 18, Math.PI, Math.PI*1.5); ctx.lineTo(x, y - 57); ctx.fill();
+  const hairGrad = ctx.createLinearGradient(x-15, y-70, x+15, y-58);
+  hairGrad.addColorStop(0, '#5D4037'); hairGrad.addColorStop(1, '#3E2723');
+  ctx.fillStyle = hairGrad;
+  ctx.beginPath(); ctx.arc(x, y - 62, 15, Math.PI, Math.PI*2); ctx.fill();
+  const eyeOffset = facing > 0 ? 3 : -3;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(x - 6 + eyeOffset, y - 53, 2.8, 0, Math.PI*2);
+  ctx.arc(x + 6 + eyeOffset, y - 53, 2.8, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#FFF';
+  ctx.beginPath();
+  ctx.arc(x - 7 + eyeOffset, y - 54, 1.1, 0, Math.PI*2);
+  ctx.arc(x + 5 + eyeOffset, y - 54, 1.1, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#5D4037'; ctx.lineWidth = 1.8;
+  ctx.beginPath(); ctx.arc(x + eyeOffset, y - 46, 5, 0.1, Math.PI - 0.1); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,138,128,0.6)';
+  ctx.beginPath();
+  ctx.arc(x - 11, y - 48, 3, 0, Math.PI*2);
+  ctx.arc(x + 11, y - 48, 3, 0, Math.PI*2);
+  ctx.fill();
+  if (label) {
+    ctx.fillStyle = 'rgba(255,255,255,0.98)';
+    ctx.beginPath(); roundRect(x - 20, y - 92, 40, 18, 9); ctx.fill();
+    ctx.strokeStyle = colorDark; ctx.lineWidth = 1.5;
+    ctx.beginPath(); roundRect(x - 20, y - 92, 40, 18, 9); ctx.stroke();
+    ctx.fillStyle = colorDark;
+    ctx.font = 'bold 12px Segoe UI';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, x, y - 83);
+  }
+}
+
+/* Polyfill */
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+if (!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+    this.beginPath();
+    this.moveTo(x+r,y);
+    this.arcTo(x+w,y,x+w,y+h,r);
+    this.arcTo(x+w,y+h,x,y+h,r);
+    this.arcTo(x,y+h,x,y,r);
+    this.arcTo(x,y,x+w,y,r);
+    this.closePath(); return this;
+  };
+}
+</script>
+</body>
+</html>
